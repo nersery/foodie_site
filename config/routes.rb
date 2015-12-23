@@ -1,4 +1,27 @@
 Rails.application.routes.draw do
+  # user controller
+
+  get 'user/signup'
+
+  post 'user/signup_complete'
+
+  get 'user/login'
+
+  post 'user/login_complete'
+
+  get 'user/logout_complete'
+
+  # post controller
+
+  root 'foods#posts'
+  get '/:category' => 'foods#posts_category'
+  get 'foods/show/:id' => 'foods#show'
+  get 'foods/write'
+  post 'foods/write_complete'
+  get 'foods/edit/:id' => 'foods#edit'
+  post 'foods/edit_complete'
+  get 'foods/delete/:id' => 'foods#delete_complete'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,7 @@
+<% @post.reverse.each do |post| %>
+<div><img src="<%= post.image_url(:thumb) %>" alt="image"></div>
+<h2><a href="/foods/show/<%= post.id %>"><%= post.title %></a></h2>
+<p><%= post.category %> || username </p>
+<p><%= post.valuation %></p>
+<p><%= post.budget %></p>
+<% end %>

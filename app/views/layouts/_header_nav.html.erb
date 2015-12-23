@@ -1,0 +1,9 @@
+<div style="text-align:right;">search engine
+<% if !session[:user_id] %>
+<a href="/user/login">Log in</a> || <a href="/user/signup">Sign up</a>
+<% else %>
+<a href="/user/logout_complete">Log out</a>
+<% end %>
+</div>
+<h1><a href="/">Min's Foodie site</a></h1>
+<h3><a href="/Korean">Korean</a> || <a href="/Japanese">Japanese</a> || <a href="/Chinese">Chinese</a> || <a href="/Wetern">Western</a> || <a href="/foods/write">Post</a></h3>

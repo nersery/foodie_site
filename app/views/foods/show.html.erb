@@ -1,0 +1,14 @@
+<h3><%= flash[:alert] %></h3>
+
+<div>
+  <p><img src="<%= @post.image_url(:medium) %>" alt=""></p>
+  <h2><%= @post.title %></h2>
+  <p><%= @post.category %> || username </p>
+  <p><%= @post.valuation %></p>
+  <p><%= @post.budget %></p>
+  <p><%= @post.content %></p>
+  <div>
+    <a href="/foods/edit/<%= @post.id %>"><input type="button" value="Edit"></a>
+    <a href="/foods/delete/<%= @post.id %>"><input type="button" value="delete"></a>
+  </div>
+</div>

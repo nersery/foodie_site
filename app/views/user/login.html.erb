@@ -1,0 +1,22 @@
+<h3><%= flash[:alert] %></h3>
+
+<h1>Log in</h1>
+
+<form action="login_complete" method="post">
+  <div>
+    <label>Account : </label>
+    <input type="text" name="account" placeholder="Your account">
+  </div>
+  <div>
+    <label>Password : </label>
+    <input type="password" name="password" placeholder="Your password">
+  </div>
+  <div>
+    <input type="submit" value="Log in">
+  </div>
+  <div>
+    <a href="/">
+      <input type="button" value="cancel">
+    </a>
+  </div>
+</form>

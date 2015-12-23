@@ -1,0 +1,50 @@
+<%= flash[:alert] %>
+
+<h2>Write your post</h2>
+<div>
+  <form action="/foods/write_complete" method="post" enctype="multipart/form-data">
+    <div>
+      <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
+    </div>
+    <div>
+      <label for="title">Title : </label>
+      <input type="text" name="title">
+    </div>
+    <div>
+      <label for="category">Category : </label>
+      <select name="category" id="category">
+        <option>Select</option>
+        <% @category.each do |cat| %>
+        <option><%= cat %></option>
+        <% end %>
+      </select>
+
+      <label for="valuation">Valuation : </label>
+      <select name="valuation" id="valuation">
+        <option>Select</option>
+        <% @valuation.each do |val| %>
+        <option><%= val %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div>
+      <label for="budget">Budget : </label>
+      <input type="text" name="budget">
+    </div>
+    <div>
+      <label for="content">Content : </label>
+      <textarea name="content" id="content" cols="30" rows="10"></textarea>
+    </div>
+    <div>
+      <label for="image">Upload image : </label>
+      <input type="file" name="image">
+    </div>
+    <div>
+      <input type="submit" value="Write">
+      <a href="/">
+        <input type="button" value="Cancle">
+      </a>
+    </div>
+  </form>
+</div>
