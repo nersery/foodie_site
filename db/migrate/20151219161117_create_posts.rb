@@ -5,6 +5,8 @@ class CreatePosts < ActiveRecord::Migration
       t.string :category
       t.float :valuation
       t.integer :budget
+      t.string :distance
+      t.string :solbab
       t.integer :user_id
       t.text :content
       t.string :image

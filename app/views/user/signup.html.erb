@@ -1,25 +1,35 @@
-<h1>Sign up</h1>
 
-<form action="/user/signup_complete" method="post">
-  <div>
-    <label>Account : </label>
-    <input type="text" name="account" placeholder="New account">
+<% if !flash[:alert].nil? %>
+  <div class="alert alert-danger text-center" role="alert">
+    <%= flash[:alert] %>
   </div>
-  <div>
-    <label>Password : </label>
-    <input type="password" name="password" placeholder="More than 6 characters long">
-  </div>
-  <div>
-    <label>Confirm your password : </label>
-    <input type="password" name="con_password">
-  </div>
-  <div>
-    <input type="submit" value="Create">
-  </div>
-  <div>
-    <a href="/">
-      <input type="button" value="cancel">
-    </a>
-  </div>
+<% end %>
 
-</form>
+<h1 class="text-center">Sign up</h1>
+
+<br>
+<div class="col-md-4"></div>
+<div class="col-md-4">
+  <form action="/user/signup_complete" method="post">
+    <div class="form-group">
+      <label>Account</label>
+      <input class="form-control" type="text" name="account" placeholder="New account">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input class="form-control" type="password" name="password" placeholder="More than 6 characters long">
+    </div>
+    <div class="form-group">
+      <label>Confirm your password</label>
+      <input class="form-control" type="password" name="con_password" placeholder="More than 6 characters long">
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary btn-block" type="submit">Create</button>
+    </div>
+    <div>
+      <p>If you already have account</p>
+      <p>Click <a style="color: blue;" href="/user/login">here</a> to log in</p>
+    </div>
+  </form>
+</div>
+<div class="col-md-4"></div>

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'foods/edit/:id' => 'foods#edit'
   post 'foods/edit_complete'
   get 'foods/delete/:id' => 'foods#delete_complete'
+  post 'foods/comment_write_complete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

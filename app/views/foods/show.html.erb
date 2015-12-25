@@ -1,14 +1,123 @@
-<h3><%= flash[:alert] %></h3>
 
-<div>
-  <p><img src="<%= @post.image_url(:medium) %>" alt=""></p>
-  <h2><%= @post.title %></h2>
-  <p><%= @post.category %> || username </p>
-  <p><%= @post.valuation %></p>
-  <p><%= @post.budget %></p>
-  <p><%= @post.content %></p>
-  <div>
-    <a href="/foods/edit/<%= @post.id %>"><input type="button" value="Edit"></a>
-    <a href="/foods/delete/<%= @post.id %>"><input type="button" value="delete"></a>
+
+<% if !flash[:alert].nil? %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<!-- Navigation -->
+<div class="row">
+  <div class="col-md-6"></div>
+  <div class="col-md-5">
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a href="#">소개</a></li>
+      <li role="presentation"><a href="#">추천 메뉴</a></li>
+    </ul>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-5">
+    <img src="<%= @post.image_url(:medium) %>" alt="image">
+  </div>
+  <div class="col-md-5">
+    <h2> + <%= @post.title %> <small>Written by <%= @post.user.username %></small></h2>
+      <p>
+        <span class="glyphicon glyphicon-time"></span>
+        posted on <%= @post.created_at %>
+      </p>
+    <table class="table text-center">
+      <tr class="info">
+        <td>분류</td>
+        <td>평점</td>
+        <td>거리</td>
+        <td>예산</td>
+        <td>솔밥 여부</td>
+      </tr>
+      <tr>
+        <td><%= @post.category %></td>
+        <td><%= @post.valuation %></td>
+        <td><%= @post.distance %></td>
+        <td><%= @post.budget %></td>
+        <td><%= @post.solbab %></td>
+      </tr>
+    </table>
+
+    <h3>감상</h3>
+    <p><%= @post.content %></p>
+
+    <br>
+    <!-- Google map -->
+    <h3>위치 정보</h3>
+    <p>Google map</p>
+    <div style='width: 800px;'>
+      <div id="map" style='width: 400px; height: 400px;'></div>
+    </div>
+
+<% if !@googlemap.latitude.nil? === true && !@googlemap.longitude.nil? === true %>
+
+    <script type="text/javascript">
+    handler = Gmaps.build('Google');
+    handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+      markers = handler.addMarkers([
+        {
+          "lat": <%= @googlemap.latitude %>,
+          "lng":  <%= @googlemap.longitude %>,
+          "picture": {
+            "url": "https://cdn3.iconfinder.com/data/icons/musthave/32/Stock%20Index%20Down.png",
+            "width":  32,
+            "height": 32
+          },
+          "infowindow": "<%= @post.title %>"
+        }
+      ]);
+      handler.bounds.extendWith(markers);
+      handler.fitMapToBounds();
+    });
+    </script>
+
+<% end %>
+    <br>
+    <h3>댓글</h3>
+    <hr>
+    <!-- Comment showing part-->
+    <% @post.comments.each do |comment| %>
+    <div>
+      <strong><%= comment.user.username %> : </strong>  <%= comment.comment %>
+    </div>
+    <% end %>
+
+    <!-- Comment writing part-->
+    <br>
+    <div>
+    <form action="/foods/comment_write_complete" method="post">
+      <div>
+        <input type="hidden" name="post_id" value="<%= @post.id %>">
+      </div>
+      <% if !@comment_writer.nil? %>
+      <div>
+        <label><strong><%= @comment_writer.username %> : </strong></label>
+        <input type="text" name="comment_content" placeholder="Write your comment">
+        <input type="submit" value="댓글 남기기">
+      </div>
+      <% end %>
+    </form>
+    </div>
+  </div>
+
+<!-- Right navigation -->
+  <div class="col-md-1">
+    <% if @post.user.id === session[:user_id] %>
+    <div class="row">
+      <div class="form-group">
+        <div class="text-center">글 작업</div>
+        <a class="col-md-12" href="/foods/edit/<%= @post.id %>"><input class="form-control" type="button" value="Edit"></a>
+        <a class="col-md-12" href="/foods/delete/<%= @post.id %>"><input class="form-control" type="button" value="delete"></a>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>

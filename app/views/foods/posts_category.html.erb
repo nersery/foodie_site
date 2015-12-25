@@ -1,5 +1,17 @@
-<h2>Contents of <%= @category %> foodies</h2>
 
 <hr>
 
+<% if !flash[:alert].nil? %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<div class="text-center">
+  <h3>교토대 주변 <%= @category %> </h3>
+</div>
+
+<hr>
+
+<%= render :partial => "foods/posts_alignment" %>
 <%= render :partial => "foods/posts" %>

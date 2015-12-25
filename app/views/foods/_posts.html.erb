@@ -1,7 +1,41 @@
-<% @post.reverse.each do |post| %>
-<div><img src="<%= post.image_url(:thumb) %>" alt="image"></div>
-<h2><a href="/foods/show/<%= post.id %>"><%= post.title %></a></h2>
-<p><%= post.category %> || username </p>
-<p><%= post.valuation %></p>
-<p><%= post.budget %></p>
-<% end %>
+<div class="row text-center">
+  <div class="col-md-3">
+  <!-- Just for grid system -->
+  </div>
+  <div class="col-md-6">
+    <% @post.reverse.each do |post| %>
+    <div class="row panel panel-danger">
+      <div class="col-md-4"><img class="card_image" src="<%= post.image_url(:thumb) %>" alt="image"></div>
+      <div class="col-md-8">
+        <div class="row card_title">
+          <h2 class="col-md-9"><a href="/foods/show/<%= post.id %>"><%= post.title %></a><small>[<%= post.comments.count %>]</small></h2>
+          <div class="col-md-3 val">평점 <%= post.valuation %></div>
+        </div>
+        <div class="row">
+          <table class="table card_table">
+            <tr class="info">
+              <td>분류</td>
+              <td>예산</td>
+              <td>거리</td>
+              <td>위치</td>
+              <td>솔밥 여부</td>
+            </tr>
+            <tr>
+              <td><%= post.category %></td>
+              <td><%= post.budget %></td>
+              <td><%= post.distance %></td>
+              <td>학교 근처</td>
+              <td><%= post.solbab %></td>
+            </tr>
+          </table>
+          <p class="text-center">작성자 : <%= post.user.username %></p>
+          <!-- 자전거는 나누기 3 하면 될 듯. -->
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+  <!-- Just for grid system -->
+  </div>
+</div>

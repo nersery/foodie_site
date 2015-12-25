@@ -1,50 +1,119 @@
-<%= flash[:alert] %>
 
-<h2>Write your post</h2>
-<div>
-  <form action="/foods/write_complete" method="post" enctype="multipart/form-data">
-    <div>
-      <input type="hidden" name="user_id" value="<%= session[:user_id] %>">
-    </div>
-    <div>
-      <label for="title">Title : </label>
-      <input type="text" name="title">
-    </div>
-    <div>
-      <label for="category">Category : </label>
-      <select name="category" id="category">
-        <option>Select</option>
-        <% @category.each do |cat| %>
-        <option><%= cat %></option>
-        <% end %>
-      </select>
+<hr>
 
-      <label for="valuation">Valuation : </label>
-      <select name="valuation" id="valuation">
-        <option>Select</option>
-        <% @valuation.each do |val| %>
-        <option><%= val %></option>
-        <% end %>
-      </select>
-    </div>
+<% if !flash[:alert].nil? %>
+  <div class="alert alert-danger" role="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
 
-    <div>
-      <label for="budget">Budget : </label>
-      <input type="text" name="budget">
-    </div>
-    <div>
-      <label for="content">Content : </label>
-      <textarea name="content" id="content" cols="30" rows="10"></textarea>
-    </div>
-    <div>
-      <label for="image">Upload image : </label>
-      <input type="file" name="image">
-    </div>
-    <div>
-      <input type="submit" value="Write">
-      <a href="/">
-        <input type="button" value="Cancle">
-      </a>
-    </div>
-  </form>
+<div class="text-center">
+  <h2>맛집 포스팅하기</h2>
+</div>
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <form action="/foods/write_complete" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <input class="form-control" type="hidden" name="user_id" value="<%= session[:user_id] %>">
+      </div>
+      <div class="form-group">
+        <label for="title">제목</label>
+        <input class="form-control" type="text" name="title" placeholder="제목을 적어주세요">
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-6">
+            <label for="category">분류</label>
+            <select class="form-control" name="category" id="category">
+              <option>Select</option>
+              <% @category.each do |cat| %>
+              <option><%= cat %></option>
+              <% end %>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="valuation">평점</label>
+            <select class="form-control" name="valuation" id="valuation">
+              <option>Select</option>
+              <% @valuation.each do |val| %>
+              <option><%= val %></option>
+              <% end %>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-4">
+            <label for="budget">예산 (단위는 작성하지 말아주세요)</label>
+            <input class="form-control" type="text" name="budget" placeholder="대략적인 가격을 적어주세요">
+          </div>
+          <div class="col-md-4">
+            <label for="distance">시계탑에서 도보로 몇분 걸리나요?</label>
+            <select class="form-control" name="distance">
+              <option value="5분 이내">5분 이내</option>
+              <option value="10분 이내">10분 이내</option>
+              <option value="15분 이내">15분 이내</option>
+              <option value="20분 이내">20분 이내</option>
+              <option value="20분 이상">20분 이상</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="solbab">솔밥 가능여부</label>
+            <select class="form-control" name="solbab">
+              <option value="O">가능</option>
+              <option value="X">불가능</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div class="form-group">
+        <label for="content">설명</label>
+        <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-6">
+            <label for="image">사진</label>
+            <input class="from-control" type="file" name="image">
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                <label for="place_search">위치 검색</label>
+                <a target="_blank" class="btn btn-default form-control" type="button" href="https://www.google.co.kr/maps/">검색</a>
+              </div>
+              <div class="col-md-9">
+                <label for="place">위치</label>
+                <input class="form-control" type="text" name="place" placeholder="구글의 위도 경도를 그대로 붙여주세요.">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<br>
+      <div class="row">
+        <div class="form-group">
+          <div class="col-md-6">
+            <input class="form-control" type="submit" value="작성">
+          </div>
+          <div class="col-md-6">
+            <a href="/">
+              <input class="form-control" type="button" value="취소">
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-2"></div>
 </div>

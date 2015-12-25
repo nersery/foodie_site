@@ -1,6 +1,13 @@
-<h2>Welcome to visit Min's foodie site!</h2>
-<p>Let us explore foodie restaurants world wide!</p>
 
 <hr>
 
+<% if !flash[:alert].nil? %>
+  <div class="alert alert-success text-center" role="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<%= render :partial => "foods/posts_alignment" %>
 <%= render :partial => "foods/posts" %>
+
+<hr>
