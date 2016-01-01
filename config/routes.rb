@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   # post controller
 
   root 'foods#posts'
-  get '/:category' => 'foods#posts_category'
+  get '/:align' => 'foods#posts'
   get 'foods/show/:id' => 'foods#show'
   get 'foods/write'
   post 'foods/write_complete'
@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   post 'foods/edit_complete'
   get 'foods/delete/:id' => 'foods#delete_complete'
   post 'foods/comment_write_complete'
+  get '/:category/:align' => 'foods#posts_category'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

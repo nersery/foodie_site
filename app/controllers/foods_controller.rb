@@ -3,10 +3,24 @@ class FoodsController < ApplicationController
   skip_before_action :login_check, :only => [:posts, :posts_category, :show]
 
   def posts
-    @post = Post.all
+    case params[:align]
+    when nil
+      @post = Post.all
+    when "align_budget_up"
+      @post = Post.all.order(:budget)
+    when "align_budget_down"
+      @post = Post.all.order(:budget).reverse
+    when "align_valuation"
+      @post = Post.all.order(:valuation)
+    when "align_distance"
+      @post = Post.all.order(:distance).reverse
+    when "align_solo"
+      @post = Post.where(solbab: "O")
+    end
   end
 
   def posts_category
+    @category_url = params[:category]
     case params[:category]
     when "Korean"
       @category = "한식"
@@ -23,7 +37,21 @@ class FoodsController < ApplicationController
     else "Nomi"
       @category = "노미"
     end
-    @post = Post.where(category: @category)
+
+    case params[:align]
+    when "all"
+      @post = Post.where(category: @category)
+    when "align_budget_up"
+      @post = Post.where(category: @category).order(:budget)
+    when "align_budget_down"
+      @post = Post.where(category: @category).order(:budget).reverse
+    when "align_valuation"
+      @post = Post.where(category: @category).order(:valuation)
+    when "align_distance"
+      @post = Post.where(category: @category).order(:distance).reverse
+    when "align_solo"
+      @post = Post.where(category: @category ,solbab: "O")
+    end
   end
 
   def show
@@ -95,11 +123,22 @@ class FoodsController < ApplicationController
     p.solbab = params[:solbab]
     p.content = params[:content]
     p.image = params[:image]
+
     if p.save
-      flash[:alert] = "Successfully edited "
-      redirect_to "/foods/show/#{p.id}"
+      g = Googlemap.where(post_id: params[:post_id])[0]
+      g.post_id = p.id
+      g.latitude = params[:place].gsub(' ','').split(',')[0].to_f
+      g.longitude = params[:place].gsub(' ','').split(',')[1].to_f
+        if g.save
+          flash[:alert] = "Edited successfully"
+          redirect_to "/foods/show/#{p.id}"
+        else
+          p.destroy
+          flash[:alert] = "Your axis information is not correct type"
+          redirect_to :back
+        end
     else
-      flash[:alert] = p.errors.values.flatten.join(' ')
+      flash[:alert] = p.errors.values.flatten[0]
       redirect_to :back
     end
   end

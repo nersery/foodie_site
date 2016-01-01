@@ -20,9 +20,11 @@
 
 <div class="row">
   <div class="col-md-1"></div>
+<!-- Image section -->
   <div class="col-md-5">
     <img src="<%= @post.image_url(:medium) %>" alt="image">
   </div>
+<!-- Description section -->
   <div class="col-md-5">
     <h2> + <%= @post.title %> <small>Written by <%= @post.user.username %></small></h2>
       <p>
@@ -50,14 +52,15 @@
     <p><%= @post.content %></p>
 
     <br>
+
     <!-- Google map -->
     <h3>위치 정보</h3>
+    <% if !@googlemap.latitude.nil? === true && !@googlemap.longitude.nil? === true && @googlemap.latitude != 0 && @googlemap.longitude != 0%>
+
     <p>Google map</p>
     <div style='width: 800px;'>
       <div id="map" style='width: 400px; height: 400px;'></div>
     </div>
-
-<% if !@googlemap.latitude.nil? === true && !@googlemap.longitude.nil? === true %>
 
     <script type="text/javascript">
     handler = Gmaps.build('Google');
@@ -78,8 +81,8 @@
       handler.fitMapToBounds();
     });
     </script>
-
-<% end %>
+<!-- Comment section -->
+    <% end %>
     <br>
     <h3>댓글</h3>
     <hr>
